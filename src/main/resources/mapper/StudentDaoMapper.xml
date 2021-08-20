@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.helloworld.dao.StudentDao">
+
+    <resultMap id="studentResultMap" type="com.example.helloworld.entity.Student">
+        <id column="stu_id" property="id"/>
+        <result column="stu_name" property="name"/>
+        <result column="stu_num" property="num"/>
+    </resultMap>
+
+    <sql id="columns">
+        stu_id,stu_name,stu_num
+    </sql>
+
+    <select id="findById" resultMap="studentResultMap">
+        select
+        <include refid="columns"/>
+        from student_info
+        <where>
+            <if test="id != null">stu_id = #{id}</if>
+        </where>
+    </select>
+
+    <insert id="insertIntoStudent" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.helloworld.entity.Student">
+        insert
+        into student_info
+            (stu_name,stu_num)
+        values (#{name}, #{num})
+    </insert>
+
+    <update id="updateStudent">
+        update student_info
+        <set>
+            <if test="name != null">
+                stu_name = #{name}
+            </if>
+        </set>
+        where stu_id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from student_info
+        where stu_id = #{id}
+    </delete>
+
+</mapper>

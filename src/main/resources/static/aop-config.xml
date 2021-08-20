@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="testAop" class="com.example.helloworld.aop.TestAop"></bean>
+    <bean id="helloworld" class="com.example.helloworld.controllers.HelloWorld"></bean>
+    <aop:config>
+        <aop:aspect id = "aop1" ref="testAop">
+            <aop:around method="aop1" pointcut="execution('com.example.helloworld.controllers.HelloWorld')"></aop:around>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
